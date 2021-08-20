@@ -1,0 +1,22 @@
+@import "variables.scss";
+
+.hover-elevate:hover {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 4px 3px 3px #000;
+}
+
+.hover-pointer {
+    cursor: pointer;
+}
+
+.border-bottom {
+    border-bottom: 1px solid $primaryAccent;
+}
+
+.rounded-border {
+    border-radius: 0.5em;
+}
+
+.active {
+    background-color: $primaryLightest !important;
+}

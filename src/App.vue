@@ -1,30 +1,36 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <navbar-container></navbar-container>
+  <main>
+    <router-view />
+  </main>
 </template>
 
+<script lang="ts">
+import { defineComponent, onMounted } from "vue";
+import NavbarContainer from "./components/navbarContainer.vue";
+
+export default defineComponent({
+  components: {
+    NavbarContainer,
+  },
+  setup() {
+    onMounted(() => {
+      console.log("mounted app");
+    });
+  },
+});
+</script>
+
 <style lang="scss">
+@import "./styles/mixins";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  main {
+    padding: 1em;
   }
 }
 </style>
