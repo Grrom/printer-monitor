@@ -5,11 +5,11 @@
     </div>
 
     <div @click="toggleNavbar" class="hamburger-button">
-      <img src="../assets/hamburger.svg" alt="navbar" />
+      <img src="../../assets/hamburger.svg" alt="navbar" />
     </div>
     <div ref="mobileNav" class="mobile-nav">
       <div @click="toggleNavbar" class="hamburger-button">
-        <img src="../assets/hamburger.svg" alt="navbar" />
+        <img src="../../assets/hamburger.svg" alt="navbar" />
       </div>
       <nav-items></nav-items>
     </div>
@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import navItems from "./navItems.vue";
+import navItems from "../nav_bar/navItems.vue";
 
 export default defineComponent({
   components: { navItems },
@@ -47,8 +47,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
-@import "../styles/variables";
+@import "../../styles/mixins";
+@import "../../styles/variables";
 
 #navbar-container {
   .mobile-nav {
@@ -74,7 +74,7 @@ export default defineComponent({
   }
 
   .desktop-nav {
-    max-width: 60vw;
+    max-width: 70vw;
     border-radius: 0 0 50px 50px;
     background-color: $primary;
     margin: auto;

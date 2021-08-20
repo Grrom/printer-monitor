@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import NavbarContainer from "./components/navbarContainer.vue";
+import NavbarContainer from "./components/nav_bar/navbarContainer.vue";
 
 export default defineComponent({
   components: {
@@ -23,6 +23,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "./styles/mixins";
+@import "./styles/variables";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -32,5 +33,9 @@ export default defineComponent({
   main {
     padding: 1em;
   }
+}
+
+.active-link {
+  border-bottom: 2px solid $white;
 }
 </style>
