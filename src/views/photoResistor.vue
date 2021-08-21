@@ -1,5 +1,11 @@
 <template>
-  <div class="gas">
-    <h1>This is an photoresistor page</h1>
+  <div id="photoresistor-view">
+    <h1>This is the photoresistor page</h1>
   </div>
 </template>
+
+<style lang="scss" scoped>
+#photoresistor-view {
+  text-align: center;
+}
+</style>
