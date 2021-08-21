@@ -1,11 +1,11 @@
 <template>
-  <div id="gas-view">
-    <h1>This is the gas page</h1>
+  <div id="status-view">
+    <h1>This is the status page</h1>
   </div>
 </template>
 
 <style lang="scss" scoped>
-#gas-view {
+#status-view {
   text-align: center;
 }
 </style>

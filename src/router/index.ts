@@ -1,18 +1,16 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import details from "@/views/details.vue"
 import home from '@/views/home.vue'
-import gas from "@/views/gas.vue"
-import light from "@/views/light.vue"
 import liveFeed from "@/views/liveFeed.vue"
-import photoResistor from "@/views/photoResistor.vue"
-import sound from "@/views/sound.vue"
+import state from "@/views/state.vue"
+import status from "@/views/status.vue"
 
 const routes: Array<RouteRecordRaw> = [
+  { path: '/details', component: details },
   { path: '/', component: home },
-  { path: '/gas', component: gas },
-  { path: '/light', component: light },
   { path: '/liveFeed', component: liveFeed },
-  { path: '/photoResistor', component: photoResistor },
-  { path: '/sound', component: sound },
+  { path: '/state', component: state },
+  { path: '/status', component: status },
 ]
 
 const router = createRouter({

@@ -1,11 +1,11 @@
 <template>
-  <div id="sound-view">
-    <h1>This is the sound page</h1>
+  <div id="details-view">
+    <h1>This is the details page</h1>
   </div>
 </template>
 
 <style lang="scss" scoped>
-#sound-view {
+#details-view {
   text-align: center;
 }
 </style>

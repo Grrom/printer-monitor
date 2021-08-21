@@ -26,24 +26,20 @@ export default defineComponent({
         name: "Home",
       },
       {
-        routeName: "/gas",
-        name: "Gas",
+        routeName: "/details",
+        name: "Printer Details",
       },
       {
-        routeName: "/light",
-        name: "Light",
+        routeName: "/state",
+        name: "Printer State",
+      },
+      {
+        routeName: "/status",
+        name: "Job Status",
       },
       {
         routeName: "/liveFeed",
         name: "Live Feed",
-      },
-      {
-        routeName: "/photoResistor",
-        name: "Photo Resistor",
-      },
-      {
-        routeName: "/sound",
-        name: "Sound",
       },
     ]);
 
