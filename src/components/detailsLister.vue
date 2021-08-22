@@ -16,7 +16,15 @@
           <div>
             <strong>{{ k }}: </strong>
 
-            <span v-if="Array.isArray(v)">{{ v.toString() }}</span>
+            <span v-if="Array.isArray(v)">
+              <span v-for="item in v" :key="item">
+                <span
+                  v-if="typeof item === 'string' || typeof item === 'number'"
+                  >{{ item.toString() }},
+                </span>
+                <span v-else>mali</span>
+              </span>
+            </span>
             <span v-else>{{ v }}</span>
           </div>
         </div>
