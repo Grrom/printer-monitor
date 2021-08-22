@@ -38,9 +38,13 @@ export default defineComponent({
         name: "Job Status",
       },
       {
-        routeName: "/liveFeed",
-        name: "Live Feed",
+        routeName: "/timelapses",
+        name: "Timelapses",
       },
+      // { i need more compensaton if we are going to add this
+      //   routeName: "/files",
+      //   name: "Manage Files",
+      // },
     ]);
 
     onMounted(() => {
