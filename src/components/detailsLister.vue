@@ -3,15 +3,23 @@
     <div id="details-lister" v-for="(values, key) in detailsList" :key="key">
       <h3>{{ key }}</h3>
 
-      <div v-if="typeof values === 'string'">
+      <div v-if="typeof values === 'string' || typeof values === 'number'">
         {{ values }}
       </div>
 
       <div v-else>
-        <p v-for="(v, k) in values" :key="k">
-          <strong>{{ k }}: </strong>
-          <span>{{ v }}</span>
-        </p>
+        <div v-for="(v, k) in values" :key="k">
+          <!-- <div v-if="typeof v === 'object'">
+            <details-lister :details-list="v"></details-lister>
+          </div> -->
+
+          <div>
+            <strong>{{ k }}: </strong>
+
+            <span v-if="Array.isArray(v)">{{ v.toString() }}</span>
+            <span v-else>{{ v }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
