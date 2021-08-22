@@ -1,20 +1,24 @@
 <template>
   <div id="status-view">
-    <h1>This is the status page</h1>
+    <!-- <h1>This is the status page</h1>
 
     <h3>Job Status</h3>
     <p>
       https://docs.octoprint.org/en/master/api/job.html#retrieve-information-about-the-current-job
-    </p>
+    </p> -->
 
-    {{ jobStatus }}
+    <details-lister :details-list="jobStatus"></details-lister>
+
+    <!-- {{ jobStatus }} -->
   </div>
 </template>
 
 <script lang="ts">
+import detailsLister from "@/components/detailsLister.vue";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
+  components: { detailsLister },
   setup() {
     const jobStatus = ref({
       job: {

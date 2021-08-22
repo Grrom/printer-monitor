@@ -1,20 +1,24 @@
 <template>
   <div id="timelapses-view">
-    <h1>This is the timelapses page</h1>
+    <!-- <h1>This is the timelapses page</h1>
 
     <h3>Timelapses</h3>
     <p>
       https://docs.octoprint.org/en/master/api/files.html#retrieve-all-files
-    </p>
+    </p> -->
 
-    {{ allFiles }}
+    <details-lister :details-list="allFiles"></details-lister>
+
+    <!-- {{ allFiles }} -->
   </div>
 </template>
 
 <script lang="ts">
+import detailsLister from "@/components/detailsLister.vue";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
+  components: { detailsLister },
   setup() {
     const allFiles = ref({
       files: [
