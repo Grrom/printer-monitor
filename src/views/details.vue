@@ -54,6 +54,7 @@ export default defineComponent({
 @import "../styles/variables";
 @import "../styles/extension";
 @import "../styles/mixins";
+@import "../styles/hovers";
 
 #details-view {
   text-align: center;
@@ -85,6 +86,8 @@ export default defineComponent({
 
       @extend .rounded-border;
       @extend .box-shadow;
+      @extend .hover-grow;
+      @extend .hover-pointer;
     }
 
     .resume {
