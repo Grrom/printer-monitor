@@ -1,13 +1,17 @@
 <template>
   <div>
-    <div id="details-lister" v-for="(values, key) in detailsList" :key="key">
-      <h3>{{ key }}</h3>
-
+    <div
+      :id="nested ? 'details-lister-nested' : 'details-lister'"
+      v-for="(values, key) in detailsList"
+      :key="key"
+    >
       <div v-if="typeof values === 'string' || typeof values === 'number'">
-        {{ values }}
+        <strong>{{ key }}: </strong>
+        <span>{{ values }}</span>
       </div>
 
       <div v-else>
+        <h3>{{ key }}</h3>
         <div v-for="(v, k) in values" :key="k">
           <!-- <div v-if="typeof v === 'object'">
             <details-lister :details-list="v"></details-lister>
@@ -22,6 +26,12 @@
                   v-if="typeof item === 'string' || typeof item === 'number'"
                   >{{ item.toString() }},
                 </span>
+                <span v-else-if="typeof item === 'object'"
+                  ><details-lister
+                    :details-list="item"
+                    nested="true"
+                  ></details-lister
+                ></span>
                 <span v-else>mali</span>
               </span>
             </span>
@@ -40,6 +50,7 @@ export default defineComponent({
   name: "detailsLister",
   props: {
     detailsList: Object,
+    nested: Boolean,
   },
 });
 </script>
@@ -54,5 +65,10 @@ export default defineComponent({
   padding: 1em;
 
   @extend .container;
+}
+
+#details-lister-nested {
+  margin-left: 2em;
+  @extend .border-bottom;
 }
 </style>
