@@ -6,8 +6,11 @@ $primaryLight: lighten($primary, 10%);
 $primaryLighter: lighten($primary, 20%);
 $primaryLightest: lighten($primary, 30%);
 
-$white: #e5e5e5;
+$bg: #e5e5e5;
+$white: #fff;
 $black: #000;
+
+$blackLight: lighten($black, 60%);
 
 // SIZES
 $desktop: 960px;

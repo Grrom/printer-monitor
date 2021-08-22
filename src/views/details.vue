@@ -1,18 +1,26 @@
 <template>
   <div id="details-view">
-    <h1>This is the details page</h1>
+    <!-- <h1>This is the details page</h1>
 
     <h3>Connection Details</h3>
-    <p>https://docs.octoprint.org/en/master/api/connection.html</p>
+    <p>https://docs.octoprint.org/en/master/api/connection.html</p> -->
 
-    {{ connectionDetails }}
+    <div class="printer-container">
+      <img src="@/assets/printer.jpg" alt="printer" class="printer" />
+    </div>
+
+    <details-lister :details-list="connectionDetails"></details-lister>
+
+    <!-- {{ connectionDetails }} -->
   </div>
 </template>
 
 <script lang="ts">
+import DetailsLister from "@/components/detailsLister.vue";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
+  components: { DetailsLister },
   setup() {
     const connectionDetails = ref({
       current: {
@@ -40,7 +48,26 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
+@import "../styles/extension";
+@import "../styles/mixins";
+
 #details-view {
   text-align: center;
+
+  @include desktop {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
+  .printer-container {
+    .printer {
+      max-width: 400px;
+      width: 80vw;
+      @extend .default-margin;
+      @extend .rounded-border;
+    }
+  }
 }
 </style>

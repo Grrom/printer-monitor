@@ -10,11 +10,25 @@
 }
 
 .border-bottom {
-    border-bottom: 1px solid $primaryAccent;
+    border-bottom: 1px solid $primary;
 }
 
 .rounded-border {
-    border-radius: 0.5em;
+    border-radius: 1em;
+}
+
+.default-margin{
+    margin: 1em;
+}
+
+.box-shadow{
+    box-shadow: .1em .1em .2em $blackLight;
+}
+
+.container{
+    @extend .default-margin;
+    @extend .rounded-border;
+    @extend .box-shadow;
 }
 
 .active {

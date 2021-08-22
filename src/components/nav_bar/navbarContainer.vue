@@ -48,6 +48,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import "../../styles/mixins";
+@import "../../styles/extension";
 @import "../../styles/variables";
 
 #navbar-container {
@@ -74,10 +75,10 @@ export default defineComponent({
   }
 
   .desktop-nav {
-    max-width: 70vw;
     border-radius: 0 0 50px 50px;
     background-color: $primary;
     margin: auto;
+    @extend .box-shadow;
     @include mobile {
       display: none;
     }

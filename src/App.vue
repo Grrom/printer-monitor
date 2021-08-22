@@ -25,10 +25,22 @@ export default defineComponent({
 @import "./styles/mixins";
 @import "./styles/variables";
 
+body {
+  background-color: $bg;
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @include desktop {
+    width: 70vw;
+    margin: auto;
+    min-width: $desktop;
+  }
 
   main {
     padding: 1em;
