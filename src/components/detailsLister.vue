@@ -13,10 +13,6 @@
       <div v-else>
         <h3>{{ key }}</h3>
         <div v-for="(v, k) in values" :key="k">
-          <!-- <div v-if="typeof v === 'object'">
-            <details-lister :details-list="v"></details-lister>
-          </div> -->
-
           <div>
             <strong>{{ k }}: </strong>
 
