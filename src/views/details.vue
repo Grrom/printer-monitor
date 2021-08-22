@@ -7,6 +7,9 @@
 
     <div class="printer-container">
       <img src="@/assets/printer.jpg" alt="printer" class="printer" />
+      <div class="resume button">resume</div>
+      <div class="pause button">pause</div>
+      <div class="stop button">stop</div>
     </div>
 
     <details-lister :details-list="connectionDetails"></details-lister>
@@ -62,11 +65,38 @@ export default defineComponent({
   }
 
   .printer-container {
+    background-color: $white;
+    padding: 1em;
+
+    @extend .container;
+
     .printer {
       max-width: 400px;
-      width: 80vw;
-      @extend .default-margin;
+      width: 90%;
+
       @extend .rounded-border;
+    }
+
+    .button {
+      width: 70%;
+      margin: 1em auto;
+      color: $white;
+      font-weight: 700;
+
+      @extend .rounded-border;
+      @extend .box-shadow;
+    }
+
+    .resume {
+      background-color: $primary;
+    }
+
+    .pause {
+      background-color: $orange;
+    }
+
+    .stop {
+      background-color: $secondary;
     }
   }
 }
