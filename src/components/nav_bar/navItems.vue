@@ -61,22 +61,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../../styles/variables";
 @import "../../styles/mixins";
+
 #nav-items {
-  .nav-item {
-    text-decoration: none;
-    color: $white;
-    font-weight: bold;
-    display: block;
-
-    @include desktop {
-      margin: 1em;
-    }
-
-    @include mobile {
-      margin: 2em 5em;
-    }
-  }
-
   @include desktop {
     display: flex;
     justify-content: center;

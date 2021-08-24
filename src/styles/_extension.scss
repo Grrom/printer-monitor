@@ -26,6 +26,8 @@
 }
 
 .container{
+    background-color: $white;
+
     @extend .default-margin;
     @extend .rounded-border;
     @extend .box-shadow;

@@ -66,7 +66,6 @@ export default defineComponent({
   }
 
   .printer-container {
-    background-color: $white;
     padding: 1em;
 
     @extend .container;
@@ -87,6 +86,7 @@ export default defineComponent({
       @extend .rounded-border;
       @extend .box-shadow;
       @extend .hover-grow;
+      @extend .active-shrink;
       @extend .hover-pointer;
     }
 
