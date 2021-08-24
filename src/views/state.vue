@@ -13,6 +13,7 @@
 </template>
 
 <script lang="ts">
+import DataTable from "@/components/dataTable.vue";
 import detailsLister from "@/components/detailsLister.vue";
 import { defineComponent, ref } from "vue";
 
@@ -36,38 +37,6 @@ export default defineComponent({
           target: 70.0,
           offset: 5,
         },
-        history: [
-          {
-            time: 1395651928,
-            tool0: {
-              actual: 214.8821,
-              target: 220.0,
-            },
-            tool1: {
-              actual: 25.3,
-              target: null,
-            },
-            bed: {
-              actual: 50.221,
-              target: 70.0,
-            },
-          },
-          {
-            time: 1395651926,
-            tool0: {
-              actual: 212.32,
-              target: 220.0,
-            },
-            tool1: {
-              actual: 25.1,
-              target: null,
-            },
-            bed: {
-              actual: 49.1123,
-              target: 70.0,
-            },
-          },
-        ],
       },
       sd: {
         ready: true,

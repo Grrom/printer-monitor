@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="lister-parent">
     <div
       :id="nested ? 'details-lister-nested' : 'details-lister'"
       v-for="(values, key) in detailsList"
@@ -11,7 +11,9 @@
       </div>
 
       <div v-else>
-        <h3>{{ key }}</h3>
+        <span v-if="nested">{{ key }}</span>
+        <h3 v-else>{{ key }}</h3>
+
         <div v-for="(v, k) in values" :key="k">
           <div>
             <strong>{{ k }}: </strong>
@@ -25,12 +27,16 @@
                 <span v-else-if="typeof item === 'object'"
                   ><details-lister
                     :details-list="item"
-                    nested="true"
+                    :nested="true"
                   ></details-lister
                 ></span>
                 <span v-else>mali</span>
               </span>
             </span>
+
+            <div v-else-if="typeof v === 'object' && !Array.isArray(v)">
+              <details-lister :details-list="v" :nested="true"></details-lister>
+            </div>
             <span v-else>{{ v }}</span>
           </div>
         </div>
@@ -55,16 +61,19 @@ export default defineComponent({
 @import "../styles/variables";
 @import "../styles/extension";
 
-#details-lister {
-  background-color: $white;
-  text-align: start;
-  padding: 1em;
+#lister-parent {
+  display: grid;
+  grid-auto-columns: auto;
+  #details-lister {
+    text-align: start;
+    padding: 1em;
 
-  @extend .container;
-}
+    @extend .container;
+  }
 
-#details-lister-nested {
-  margin-left: 2em;
-  @extend .border-bottom;
+  #details-lister-nested {
+    margin-left: 2em;
+    @extend .border-bottom;
+  }
 }
 </style>
