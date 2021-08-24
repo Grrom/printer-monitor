@@ -57,14 +57,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../styles/variables";
 @import "../styles/extension";
-
 #lister-parent {
-  display: grid;
-  grid-auto-columns: auto;
+  display: flex;
+  flex-wrap: wrap;
+
   #details-lister {
     text-align: start;
-    padding: 1em;
-
+    padding: 3em;
+    flex: 1;
     @extend .container;
   }
 
