@@ -15,30 +15,27 @@
         <h3 v-else>{{ key }}</h3>
 
         <div v-for="(v, k) in values" :key="k">
-          <div>
-            <strong>{{ k }}: </strong>
+          <strong>{{ k }}: </strong>
 
-            <span v-if="Array.isArray(v)">
-              <span v-for="item in v" :key="item">
-                <span
-                  v-if="typeof item === 'string' || typeof item === 'number'"
-                  >{{ item.toString() }},
-                </span>
-                <span v-else-if="typeof item === 'object'"
-                  ><details-lister
-                    :details-list="item"
-                    :nested="true"
-                  ></details-lister
-                ></span>
-                <span v-else>mali</span>
+          <span v-if="Array.isArray(v)">
+            <span v-for="item in v" :key="item">
+              <span v-if="typeof item === 'string' || typeof item === 'number'"
+                >{{ item.toString() }},
               </span>
+              <span v-else-if="typeof item === 'object'"
+                ><details-lister
+                  :details-list="item"
+                  :nested="true"
+                ></details-lister
+              ></span>
+              <span v-else>something went wrong</span>
             </span>
+          </span>
 
-            <div v-else-if="typeof v === 'object' && !Array.isArray(v)">
-              <details-lister :details-list="v" :nested="true"></details-lister>
-            </div>
-            <span v-else>{{ v }}</span>
+          <div v-else-if="typeof v === 'object' && !Array.isArray(v)">
+            <details-lister :details-list="v" :nested="true"></details-lister>
           </div>
+          <span v-else>{{ v }}</span>
         </div>
       </div>
     </div>

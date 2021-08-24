@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts">
-import DataTable from "@/components/dataTable.vue";
 import detailsLister from "@/components/detailsLister.vue";
 import { defineComponent, ref } from "vue";
 
