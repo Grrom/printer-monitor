@@ -40,6 +40,8 @@ export default defineComponent({
   display: flex;
   align-items: center;
 
+  @extend .hover-grow;
+
   @include desktop {
     margin: 1em;
   }
