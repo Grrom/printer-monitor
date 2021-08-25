@@ -4,11 +4,12 @@
     :class="hasIcon ? 'nav-item has-icon' : 'nav-item'"
   >
     <img :src="icon" v-if="hasIcon" :alt="name" class="icon" />
-    <span>{{ name }}</span>
+    <span @click="closeNav">{{ name }}</span>
   </router-link>
 </template>
 
 <script lang="ts">
+import { emitter } from "@/main";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
@@ -20,8 +21,11 @@ export default defineComponent({
   setup(props) {
     const hasIcon = ref(props.icon !== undefined);
 
+    const closeNav = () => emitter.emit("close-nav");
+
     return {
       hasIcon,
+      closeNav,
     };
   },
 });
@@ -36,11 +40,11 @@ export default defineComponent({
   text-decoration: none;
   color: $white;
   font-weight: bold;
-  display: block;
   display: flex;
   align-items: center;
 
   @extend .hover-grow;
+  @extend .no-select;
 
   @include desktop {
     margin: 1em;

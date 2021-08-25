@@ -25,10 +25,13 @@ export default defineComponent({
 @import "./styles/mixins";
 @import "./styles/variables";
 
-body {
-  background-color: $bg;
+* {
   margin: 0;
   padding: 0;
+}
+
+body {
+  background-color: $bg;
   overflow-y: scroll;
 }
 
