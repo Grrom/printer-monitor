@@ -30,6 +30,7 @@
     background-color: $white;
 
     @extend .hover-grow-subtle;
+    @extend .scale-in;
     @extend .default-margin;
     @extend .default-padding;
     @extend .rounded-border;
