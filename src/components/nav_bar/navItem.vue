@@ -59,9 +59,11 @@ export default defineComponent({
   color: $primary;
   padding: 0.5em;
   font-size: 0.8em;
+  background-color: $white;
 
+  @extend .rounded-border;
+  @extend .box-shadow;
   @extend .hover-grow;
   @extend .active-shrink;
-  @extend .container;
 }
 </style>

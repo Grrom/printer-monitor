@@ -29,6 +29,7 @@ body {
   background-color: $bg;
   margin: 0;
   padding: 0;
+  overflow-y: scroll;
 }
 
 #app {

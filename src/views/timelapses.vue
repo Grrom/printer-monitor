@@ -4,115 +4,133 @@
 
     <h3>Timelapses</h3>
     <p>
-      https://docs.octoprint.org/en/master/api/files.html#retrieve-all-files
+      https://docs.octoprint.org/en/master/api/timelapse.html#
     </p> -->
 
-    <details-lister :details-list="allFiles"></details-lister>
-
-    <!-- {{ allFiles }} -->
+    <div
+      v-for="(timelapse, index) in allTimelapses"
+      :key="timelapse.name"
+      class="timelapse-container"
+      ref="timelapseContainer"
+    >
+      <div class="details-container">
+        <div>
+          <h3>{{ timelapse.name }}</h3>
+          <p>{{ timelapse.size }}</p>
+          <p>{{ timelapse.date }}</p>
+        </div>
+        <img
+          :src="
+            timelapse.playing
+              ? require('@/assets/close.svg')
+              : require('@/assets/play.svg')
+          "
+          alt="play"
+          class="play-button"
+          @click="setPlaying(index)"
+        />
+      </div>
+      <video
+        v-show="timelapse.playing"
+        :src="timelapse.url"
+        controls
+        class="video-player"
+      ></video>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import detailsLister from "@/components/detailsLister.vue";
 import { defineComponent, ref } from "vue";
 
 export default defineComponent({
-  components: { detailsLister },
   setup() {
-    const allFiles = ref({
-      files: [
-        {
-          name: "whistle_v2.gcode",
-          path: "whistle_v2.gcode",
-          type: "machinecode",
-          typePath: ["machinecode", "gcode"],
-          hash: "...",
-          size: 1468987,
-          date: 1378847754,
-          origin: "local",
-          refs: {
-            resource: "http://example.com/api/files/local/whistle_v2.gcode",
-            download:
-              "http://example.com/downloads/files/local/whistle_v2.gcode",
-          },
-          gcodeAnalysis: {
-            estimatedPrintTime: 1188,
-            filament: {
-              length: 810,
-              volume: 5.36,
-            },
-          },
-          print: {
-            failure: 4,
-            success: 23,
-            last: {
-              date: 1387144346,
-              success: true,
-            },
-          },
-        },
-        {
-          name: "whistle_.gco",
-          path: "whistle_.gco",
-          type: "machinecode",
-          typePath: ["machinecode", "gcode"],
-          origin: "sdcard",
-          refs: {
-            resource: "http://example.com/api/files/sdcard/whistle_.gco",
-          },
-        },
-        {
-          name: "folderA",
-          path: "folderA",
-          type: "folder",
-          typePath: ["folder"],
-          children: [
-            {
-              name: "whistle_v2_copy.gcode",
-              path: "whistle_v2_copy.gcode",
-              type: "machinecode",
-              typePath: ["machinecode", "gcode"],
-              hash: "...",
-              size: 1468987,
-              date: 1378847754,
-              origin: "local",
-              refs: {
-                resource:
-                  "http://example.com/api/files/local/folderA/whistle_v2_copy.gcode",
-                download:
-                  "http://example.com/downloads/files/local/folderA/whistle_v2_copy.gcode",
-              },
-              gcodeAnalysis: {
-                estimatedPrintTime: 1188,
-                filament: {
-                  length: 810,
-                  volume: 5.36,
-                },
-              },
-              print: {
-                failure: 4,
-                success: 23,
-                last: {
-                  date: 1387144346,
-                  success: true,
-                },
-              },
-            },
-          ],
-        },
-      ],
-      free: "3.2GB",
-    });
+    const timelapseContainer = ref();
+
+    const allTimelapses = ref([
+      {
+        name: "timelapse 01",
+        size: "100mb",
+        date: new Date().toString(),
+        url: require("@/assets/groot.mp4"),
+        playing: false,
+      },
+      {
+        name: "timelapse 02",
+        size: "100mb",
+        date: new Date().toString(),
+        url: require("@/assets/groot.mp4"),
+        playing: false,
+      },
+      {
+        name: "timelapse 03",
+        size: "100mb",
+        date: new Date().toString(),
+        url: require("@/assets/groot.mp4"),
+        playing: false,
+      },
+    ]);
+
+    function setPlaying(index: number) {
+      let isPlaying = allTimelapses.value[index].playing;
+      allTimelapses.value[index].playing = !isPlaying;
+
+      let videoPlayer: HTMLVideoElement = document.querySelectorAll(
+        ".video-player"
+      )[index] as HTMLVideoElement;
+      if (isPlaying) {
+        videoPlayer.pause();
+      } else {
+        videoPlayer.play();
+      }
+    }
 
     return {
-      allFiles,
+      timelapseContainer,
+      allTimelapses,
+      setPlaying,
     };
   },
 });
 </script>
 <style lang="scss" scoped>
+@import "../styles/extension";
+@import "../styles/hovers";
+@import "../styles/variables";
+
 #timelapses-view {
   text-align: center;
+
+  .timelapse-container {
+    text-align: start;
+
+    @extend .container;
+
+    .details-container {
+      display: flex;
+      justify-content: space-between;
+
+      @extend .default-padding;
+
+      .play-button {
+        align-self: center;
+        color: $primary;
+        width: 3em;
+        height: 3em;
+
+        @extend .hover-grow;
+        @extend .hover-pointer;
+        @extend .active-shrink;
+      }
+    }
+
+    .video-player {
+      width: 95%;
+      display: block;
+      margin: 1.5em auto;
+
+      @extend .rounded-border;
+    }
+  }
 }
 </style>

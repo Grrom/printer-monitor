@@ -1,4 +1,5 @@
 @import "variables.scss";
+@import "hovers.scss";
 
 .hover-elevate:hover {
     transform: translateY(-1px) scale(1.03);
@@ -14,11 +15,15 @@
 }
 
 .rounded-border {
-    border-radius: 1em;
+    border-radius: 2em;
 }
 
 .default-margin{
     margin: 1em;
+}
+
+.default-padding{
+    padding: .5em;
 }
 
 .box-shadow{
@@ -28,11 +33,9 @@
 .container{
     background-color: $white;
 
+    @extend .hover-grow-subtle;
     @extend .default-margin;
+    @extend .default-padding;
     @extend .rounded-border;
     @extend .box-shadow;
-}
-
-.active {
-    background-color: $primaryLightest !important;
 }
