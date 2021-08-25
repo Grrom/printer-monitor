@@ -65,6 +65,7 @@ export default defineComponent({
     text-align: start;
     padding: 3em;
     flex: 1;
+
     @extend .container;
   }
 

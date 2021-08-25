@@ -37,10 +37,10 @@ export default defineComponent({
           offset: 5,
         },
       },
-      sd: {
-        ready: true,
-      },
       state: {
+        sd: {
+          ready: true,
+        },
         text: "Operational",
         flags: {
           operational: true,

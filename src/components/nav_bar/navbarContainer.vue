@@ -83,5 +83,7 @@ export default defineComponent({
       display: none;
     }
   }
+
+  @extend .hover-grow-subtle;
 }
 </style>>
