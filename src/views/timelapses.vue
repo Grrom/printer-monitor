@@ -19,16 +19,25 @@
           <p>{{ timelapse.size }}</p>
           <p>{{ timelapse.date }}</p>
         </div>
-        <img
-          :src="
-            timelapse.playing
-              ? require('@/assets/close.svg')
-              : require('@/assets/play.svg')
-          "
-          alt="play"
-          class="play-button"
-          @click="setPlaying(index)"
-        />
+        <div class="icon-button-container">
+          <img
+            :src="
+              timelapse.playing
+                ? require('@/assets/close.svg')
+                : require('@/assets/play.svg')
+            "
+            alt="play"
+            class="icon-button"
+            @click="setPlaying(index)"
+          />
+          <a :href="timelapse.url" download target="_blank">
+            <img
+              src="@/assets/download.svg"
+              alt="download"
+              class="icon-button"
+            />
+          </a>
+        </div>
       </div>
       <video
         v-show="timelapse.playing"
@@ -112,14 +121,18 @@ export default defineComponent({
 
       @extend .default-padding;
 
-      .play-button {
+      .icon-button-container {
         align-self: center;
-        color: $primary;
-        width: 3em;
-        height: 3em;
 
-        @extend .hover-grow;
-        @extend .hover-pointer;
+        .icon-button {
+          color: $primary;
+          width: 3em;
+          height: 3em;
+
+          @extend .default-margin;
+          @extend .hover-grow;
+          @extend .hover-pointer;
+        }
       }
     }
 
