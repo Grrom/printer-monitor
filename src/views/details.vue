@@ -85,8 +85,7 @@ export default defineComponent({
 
       @extend .rounded-border;
       @extend .box-shadow;
-      @extend .hover-grow;
-      @extend .active-shrink;
+      @extend .hover-elevate;
       @extend .hover-pointer;
     }
 

@@ -26,9 +26,17 @@
   transform: scale(1);
 }
 
+.hover-elevate:hover {
+  box-shadow: 0 .4em .4em $blackLight;
+
+  @extend .hover-grow;
+}
 .hover-grow:hover {
+  transform: translateY(-1px) scale(1.03);
   transition: 200ms;
   transform: scale(1.1);
+
+  @extend .active-shrink;
 }
 
 .hover-grow-subtle:hover {

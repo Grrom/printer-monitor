@@ -120,7 +120,6 @@ export default defineComponent({
 
         @extend .hover-grow;
         @extend .hover-pointer;
-        @extend .active-shrink;
       }
     }
 

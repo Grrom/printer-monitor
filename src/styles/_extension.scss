@@ -1,10 +1,6 @@
 @import "variables.scss";
 @import "hovers.scss";
 
-.hover-elevate:hover {
-    transform: translateY(-1px) scale(1.03);
-    box-shadow: 4px 3px 3px #000;
-}
 
 .hover-pointer {
     cursor: pointer;
