@@ -11,15 +11,15 @@
         <div>
           <p>
             <strong>File Position:</strong>
-            {{ convertBytes(progress.filepos) }}
+            {{ filePos }}
           </p>
           <p>
             <strong>Print time:</strong>
-            {{ formatTime(progress.printTime) }}
+            {{ printTime }}
           </p>
           <p>
             <strong>Print time left:</strong>
-            {{ formatTime(progress.printTimeLeft) }}
+            {{ printTimeLeft }}
           </p>
         </div>
         <div>
@@ -33,7 +33,11 @@
         </div>
       </div>
       <div class="progress-bar">
-        <div ref="progressBar" class="progress">
+        <div
+          ref="progressBar"
+          class="progress"
+          :class="printing ? 'resume' : 'pause'"
+        >
           <strong
             >{{ Math.round(progress.completion * 100 * 100) / 100 }}%
           </strong>
@@ -47,13 +51,15 @@
 
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
-import { defineComponent, onMounted, ref } from "vue";
+import { formatDate, formatTime, convertBytes } from "@/helpers/helpers";
+import { computed, defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   components: { detailsLister },
   setup() {
     const progressBar = ref();
     const printing = ref(true);
+
     let timerInstance = setInterval(timer, 1000);
 
     const jobStatus = ref({
@@ -82,44 +88,6 @@ export default defineComponent({
       printTimeLeft: 912,
     });
 
-    function convertBytes(x: any) {
-      const units = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-
-      let l = 0,
-        n = parseInt(x, 10) || 0;
-
-      while (n >= 1024 && ++l) {
-        n = n / 1024;
-      }
-
-      return n.toFixed(n < 10 && l > 0 ? 1 : 0) + " " + units[l];
-    }
-
-    function formatTime(duration: number) {
-      let hrs = ~~(duration / 3600);
-      let mins = ~~((duration % 3600) / 60);
-      let secs = ~~duration % 60;
-
-      let ret = "";
-
-      if (hrs > 0) {
-        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-      }
-
-      ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-      ret += "" + secs;
-
-      return ret;
-    }
-
-    function formatDate(value: number) {
-      let date = new Date(value * 1000);
-      const day = date.toLocaleString("default", { day: "2-digit" });
-      const month = date.toLocaleString("default", { month: "short" });
-      const year = date.toLocaleString("default", { year: "numeric" });
-      return day + "-" + month + "-" + year;
-    }
-
     function timer() {
       progress.value.filepos += 1000;
 
@@ -141,13 +109,20 @@ export default defineComponent({
       printing.value = !printing.value;
     }
 
+    const printTime = computed(() => formatTime(progress.value.printTime));
+    const printTimeLeft = computed(() =>
+      formatTime(progress.value.printTimeLeft)
+    );
+    const filePos = computed(() => convertBytes(progress.value.filepos));
+
     return {
       jobStatus,
       progress,
       progressBar,
       printing,
-      convertBytes,
-      formatTime,
+      printTime,
+      printTimeLeft,
+      filePos,
       togglePrint,
     };
   },
@@ -194,6 +169,14 @@ export default defineComponent({
         background-color: $primary;
         border-radius: inherit;
       }
+
+      .resume {
+        background-color: $primary;
+      }
+
+      .pause {
+        background-color: $orange;
+      }
     }
 
     .button {
@@ -214,10 +197,6 @@ export default defineComponent({
 
     .pause {
       background-color: $orange;
-    }
-
-    .stop {
-      background-color: $secondary;
     }
   }
 }
