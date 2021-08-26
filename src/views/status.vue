@@ -52,7 +52,7 @@
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
 import { formatDate, formatTime, convertBytes } from "@/helpers/helpers";
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 
 export default defineComponent({
   components: { detailsLister },
@@ -113,7 +113,9 @@ export default defineComponent({
     const printTimeLeft = computed(() =>
       formatTime(progress.value.printTimeLeft)
     );
-    const filePos = computed(() => convertBytes(progress.value.filepos));
+    const filePos = computed(() =>
+      convertBytes(progress.value.filepos.toString())
+    );
 
     return {
       jobStatus,
