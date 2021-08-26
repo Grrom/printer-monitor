@@ -10,12 +10,10 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "frappe-charts": "^1.6.2",
     "register-service-worker": "^1.7.1",
     "tiny-emitter": "^2.1.0",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
-    "vue-sidebar-menu": "^5.0.1"
+    "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.18.0",
