@@ -5,13 +5,6 @@
     <h3>Connection Details</h3>
     <p>https://docs.octoprint.org/en/master/api/connection.html</p> -->
 
-    <div class="printer-container">
-      <img src="@/assets/printer.jpg" alt="printer" class="printer" />
-      <div class="resume button">resume</div>
-      <div class="pause button">pause</div>
-      <div class="stop button">stop</div>
-    </div>
-
     <details-lister :details-list="connectionDetails"></details-lister>
 
     <!-- {{ connectionDetails }} -->
@@ -63,43 +56,6 @@ export default defineComponent({
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-  }
-
-  .printer-container {
-    padding: 1em;
-
-    @extend .container;
-
-    .printer {
-      max-width: 400px;
-      width: 90%;
-
-      @extend .rounded-border;
-    }
-
-    .button {
-      width: 70%;
-      margin: 1em auto;
-      color: $white;
-      font-weight: 700;
-
-      @extend .rounded-border;
-      @extend .box-shadow;
-      @extend .hover-elevate;
-      @extend .hover-pointer;
-    }
-
-    .resume {
-      background-color: $primary;
-    }
-
-    .pause {
-      background-color: $orange;
-    }
-
-    .stop {
-      background-color: $secondary;
-    }
   }
 }
 </style>
