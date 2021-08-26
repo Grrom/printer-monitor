@@ -11,7 +11,6 @@
       v-for="(timelapse, index) in allTimelapses"
       :key="timelapse.name"
       class="timelapse-container"
-      ref="timelapseContainer"
     >
       <div class="details-container">
         <div>
@@ -54,8 +53,6 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup() {
-    const timelapseContainer = ref();
-
     const allTimelapses = ref([
       {
         name: "timelapse 01",
@@ -95,7 +92,6 @@ export default defineComponent({
     }
 
     return {
-      timelapseContainer,
       allTimelapses,
       setPlaying,
     };
