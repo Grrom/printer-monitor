@@ -177,7 +177,7 @@ export default defineComponent({
       }
 
       .pause {
-        background-color: $orange;
+        background-color: $secondary;
       }
     }
 
@@ -198,7 +198,7 @@ export default defineComponent({
     }
 
     .pause {
-      background-color: $orange;
+      background-color: $secondary;
     }
   }
 }
