@@ -31,7 +31,6 @@ export default defineComponent({
         .then(function (data) {
           state.value = data;
         })
-
         .catch((error) => {
           console.warn(error);
         });

@@ -13,27 +13,30 @@
 
 <script lang="ts">
 import DetailsLister from "@/components/detailsLister.vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   components: { DetailsLister },
   setup() {
-    const connectionDetails = ref({
-      current: {
-        state: "operational",
-        port: "/dev/ttyacm0",
-        baudrate: 250000,
-        printerprofile: "_default",
-      },
-      options: {
-        ports: ["/dev/ttyacm0", "virtual"],
-        baudrates: [250000, 230400, 115200, 57600, 38400, 19200, 9600],
-        printerprofiles: [{ name: "default", id: "_default" }],
-        portpreference: "/dev/ttyacm0",
-        baudratepreference: 250000,
-        printerprofilepreference: "_default",
-        autoconnect: true,
-      },
+    const connectionDetails = ref({});
+
+    function requestState() {
+      fetch(
+        "http://192.168.43.60/api/connection?apikey=D299AAAE1A294A458D3846FE33A48AC0"
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          connectionDetails.value = data;
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    }
+
+    onMounted(() => {
+      requestState();
     });
 
     return {
