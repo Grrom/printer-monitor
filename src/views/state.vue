@@ -37,7 +37,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      requestState();
+      setInterval(requestState, 1000);
     });
 
     return {
