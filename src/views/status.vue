@@ -60,52 +60,35 @@ export default defineComponent({
     const progressBar = ref();
     const printing = ref(true);
 
-    let timerInstance = setInterval(timer, 1000);
+    let timerInstance = setInterval(requestStatus, 1000);
 
-    const jobStatus = ref({
-      job: {
-        file: {
-          name: "whistle_v2.gcode",
-          origin: "local",
-          size: 1468987,
-          date: formatDate(1378847754).toString(),
-        },
-        estimatedPrintTime: 8811,
-        filament: {
-          tool0: {
-            length: 810,
-            volume: 5.36,
-          },
-        },
-      },
-      state: "Printing",
-    });
+    const jobStatus = ref({ job: "", state: "" });
 
     const progress = ref({
-      completion: 0.2298468264184775,
-      filepos: 337942,
-      printTime: 276,
-      printTimeLeft: 912,
+      completion: null,
+      filepos: null,
+      printTime: null,
+      printTimeLeft: null,
     });
 
-    function timer() {
-      progress.value.filepos += 1000;
+    // function timer() {
+    //   progress.value.filepos += 1000;
 
-      progress.value.printTime += 1;
-      progress.value.printTimeLeft -= 1;
+    //   progress.value.printTime += 1;
+    //   progress.value.printTimeLeft -= 1;
 
-      progress.value.completion += 0.001;
-      progressBar.value.style.width = `${
-        Math.round(progress.value.completion * 100 * 100) / 100
-      }%`;
-    }
+    //   progress.value.completion += 0.001;
+    //   progressBar.value.style.width = `${
+    //     Math.round(progress.value.completion * 100 * 100) / 100
+    //   }%`;
+    // }
 
     function togglePrint() {
-      if (printing.value) {
-        clearInterval(timerInstance);
-      } else {
-        timerInstance = setInterval(timer, 1000);
-      }
+      // if (printing.value) {
+      //   clearInterval(timerInstance);
+      // } else {
+      //   timerInstance = setInterval(timer, 1000);
+      // }
       printing.value = !printing.value;
     }
 
@@ -113,9 +96,7 @@ export default defineComponent({
     const printTimeLeft = computed(() =>
       formatTime(progress.value.printTimeLeft)
     );
-    const filePos = computed(() =>
-      convertBytes(progress.value.filepos.toString())
-    );
+    const filePos = computed(() => convertBytes(`${progress.value.filepos}`));
 
     function requestStatus() {
       fetch(
@@ -125,9 +106,10 @@ export default defineComponent({
           return response.json();
         })
         .then(function (data) {
-          jobStatus.value = data;
-          console.log(data.progress);
+          jobStatus.value["job"] = data.job;
+          jobStatus.value["state"] = data.state;
           progress.value = data.progress;
+          console.log("requested status");
         })
         .catch((error) => {
           console.warn(error);
@@ -135,7 +117,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      // requestStatus();
+      requestStatus();
     });
 
     return {
