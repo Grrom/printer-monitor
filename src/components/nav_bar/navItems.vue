@@ -41,10 +41,6 @@ export default defineComponent({
         routeName: "/timelapses",
         name: "Timelapses",
       },
-      // { i need more compensaton if we are going to add this
-      //   routeName: "/files",
-      //   name: "Manage Files",
-      // },
     ]);
 
     onMounted(() => {
