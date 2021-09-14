@@ -109,7 +109,6 @@ export default defineComponent({
           jobStatus.value["job"] = data.job;
           jobStatus.value["state"] = data.state;
           progress.value = data.progress;
-          console.log("requested status");
         })
         .catch((error) => {
           console.warn(error);
