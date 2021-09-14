@@ -19,16 +19,6 @@
           <p>{{ timelapse.date }}</p>
         </div>
         <div class="icon-button-container">
-          <!-- <img
-            :src="
-              timelapse.playing
-                ? require('@/assets/close.svg')
-                : require('@/assets/play.svg')
-            "
-            alt="play"
-            class="icon-button"
-            @click="setPlaying(index)"
-          /> -->
           <a :href="timelapse.url" download target="_blank">
             <img
               src="@/assets/download.svg"
@@ -38,12 +28,6 @@
           </a>
         </div>
       </div>
-      <!-- <video
-        v-show="timelapse.playing"
-        :src="timelapse.url"
-        controls
-        class="video-player"
-      ></video> -->
     </div>
   </div>
 </template>
@@ -54,25 +38,6 @@ import { defineComponent, onMounted, ref } from "vue";
 export default defineComponent({
   setup() {
     const allTimelapses = ref([{}]);
-
-    // function setPlaying(index: number) {
-    //   let isPlaying = allTimelapses.value[index].playing;
-    //   allTimelapses.value[index].playing = !isPlaying;
-
-    //   console.log(
-    //     (document.querySelectorAll(".video-player")[index] as HTMLVideoElement)
-    //       .src
-    //   );
-
-    //   let videoPlayer: HTMLVideoElement = document.querySelectorAll(
-    //     ".video-player"
-    //   )[index] as HTMLVideoElement;
-    //   if (isPlaying) {
-    //     videoPlayer.pause();
-    //   } else {
-    //     videoPlayer.play();
-    //   }
-    // }
 
     function requestTimelapses() {
       fetch(
@@ -89,7 +54,6 @@ export default defineComponent({
               size: timelapse.size,
               date: timelapse.date,
               url: `http://192.168.43.60${timelapse.url}`,
-              playing: false,
             });
           });
         })
@@ -104,7 +68,6 @@ export default defineComponent({
 
     return {
       allTimelapses,
-      // setPlaying,
     };
   },
 });

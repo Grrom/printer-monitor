@@ -60,8 +60,6 @@ export default defineComponent({
     const progressBar = ref();
     const printing = ref(true);
 
-    let timerInstance = setInterval(requestStatus, 1000);
-
     const jobStatus = ref({ job: "", state: "" });
 
     const progress = ref({
@@ -71,24 +69,7 @@ export default defineComponent({
       printTimeLeft: null,
     });
 
-    // function timer() {
-    //   progress.value.filepos += 1000;
-
-    //   progress.value.printTime += 1;
-    //   progress.value.printTimeLeft -= 1;
-
-    //   progress.value.completion += 0.001;
-    //   progressBar.value.style.width = `${
-    //     Math.round(progress.value.completion * 100 * 100) / 100
-    //   }%`;
-    // }
-
     function togglePrint() {
-      // if (printing.value) {
-      //   clearInterval(timerInstance);
-      // } else {
-      //   timerInstance = setInterval(timer, 1000);
-      // }
       printing.value = !printing.value;
     }
 
