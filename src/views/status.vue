@@ -38,9 +38,7 @@
           class="progress"
           :class="printing ? 'resume' : 'pause'"
         >
-          <strong
-            >{{ Math.round(progress.completion * 100 * 100) / 100 }}%
-          </strong>
+          <strong>{{ formatProgress(progress.completion) }}% </strong>
         </div>
       </div>
     </div>
@@ -51,7 +49,7 @@
 
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
-import { formatDate, formatTime, convertBytes } from "@/helpers/helpers";
+import { formatTime, convertBytes } from "@/helpers/helpers";
 import { computed, defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
@@ -90,13 +88,25 @@ export default defineComponent({
           jobStatus.value["job"] = data.job;
           jobStatus.value["state"] = data.state;
           progress.value = data.progress;
+          console.log(data.progress);
+
+          progressBar.value.style.width = `${formatProgress(
+            data.progress.completion
+          )}%`;
         })
         .catch((error) => {
           console.warn(error);
         });
     }
 
+    function formatProgress(progress: number): number {
+      return progress === 100
+        ? progress
+        : Math.round(progress * 100 * 100) / 100;
+    }
+
     onMounted(() => {
+      // setInterval(requestStatus, 1000);
       requestStatus();
     });
 
@@ -108,6 +118,7 @@ export default defineComponent({
       printTime,
       printTimeLeft,
       filePos,
+      formatProgress,
       togglePrint,
     };
   },
