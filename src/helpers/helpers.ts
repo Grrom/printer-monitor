@@ -1,4 +1,7 @@
-export function convertBytes(bytes: string): string {
+export function convertBytes(bytes: string | null): string {
+    if (bytes == null) {
+        bytes = "0";
+    }
     const units = ["bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
     let l = 0,
@@ -11,7 +14,10 @@ export function convertBytes(bytes: string): string {
     return n.toFixed(n < 10 && l > 0 ? 1 : 0) + " " + units[l];
 }
 
-export function formatTime(duration: number): string {
+export function formatTime(duration: number | null): string {
+    if (duration == null) {
+        duration = 0;
+    }
     const hrs = ~~(duration / 3600);
     const mins = ~~((duration % 3600) / 60);
     const secs = ~~duration % 60;
@@ -28,7 +34,10 @@ export function formatTime(duration: number): string {
     return ret;
 }
 
-export function formatDate(value: number): string {
+export function formatDate(value: number | null): string {
+    if (value == null) {
+        value = 0;
+    }
     const date = new Date(value * 1000);
     const day = date.toLocaleString("default", { day: "2-digit" });
     const month = date.toLocaleString("default", { month: "short" });

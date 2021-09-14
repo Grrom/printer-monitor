@@ -38,9 +38,7 @@
           class="progress"
           :class="printing ? 'resume' : 'pause'"
         >
-          <strong
-            >{{ Math.round(progress.completion * 100 * 100) / 100 }}%
-          </strong>
+          <strong>{{ formatProgress(progress.completion) }}% </strong>
         </div>
       </div>
     </div>
@@ -51,8 +49,8 @@
 
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
-import { formatDate, formatTime, convertBytes } from "@/helpers/helpers";
-import { computed, defineComponent, ref } from "vue";
+import { formatTime, convertBytes } from "@/helpers/helpers";
+import { computed, defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   components: { detailsLister },
@@ -60,52 +58,16 @@ export default defineComponent({
     const progressBar = ref();
     const printing = ref(true);
 
-    let timerInstance = setInterval(timer, 1000);
-
-    const jobStatus = ref({
-      job: {
-        file: {
-          name: "whistle_v2.gcode",
-          origin: "local",
-          size: 1468987,
-          date: formatDate(1378847754).toString(),
-        },
-        estimatedPrintTime: 8811,
-        filament: {
-          tool0: {
-            length: 810,
-            volume: 5.36,
-          },
-        },
-      },
-      state: "Printing",
-    });
+    const jobStatus = ref({ job: "", state: "" });
 
     const progress = ref({
-      completion: 0.2298468264184775,
-      filepos: 337942,
-      printTime: 276,
-      printTimeLeft: 912,
+      completion: null,
+      filepos: null,
+      printTime: null,
+      printTimeLeft: null,
     });
 
-    function timer() {
-      progress.value.filepos += 1000;
-
-      progress.value.printTime += 1;
-      progress.value.printTimeLeft -= 1;
-
-      progress.value.completion += 0.001;
-      progressBar.value.style.width = `${
-        Math.round(progress.value.completion * 100 * 100) / 100
-      }%`;
-    }
-
     function togglePrint() {
-      if (printing.value) {
-        clearInterval(timerInstance);
-      } else {
-        timerInstance = setInterval(timer, 1000);
-      }
       printing.value = !printing.value;
     }
 
@@ -113,9 +75,40 @@ export default defineComponent({
     const printTimeLeft = computed(() =>
       formatTime(progress.value.printTimeLeft)
     );
-    const filePos = computed(() =>
-      convertBytes(progress.value.filepos.toString())
-    );
+    const filePos = computed(() => convertBytes(`${progress.value.filepos}`));
+
+    function requestStatus() {
+      fetch(
+        "http://192.168.43.60/api/job?apikey=D299AAAE1A294A458D3846FE33A48AC0"
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          jobStatus.value["job"] = data.job;
+          jobStatus.value["state"] = data.state;
+          progress.value = data.progress;
+          console.log(data.progress);
+
+          progressBar.value.style.width = `${formatProgress(
+            data.progress.completion
+          )}%`;
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    }
+
+    function formatProgress(progress: number): number {
+      return progress === 100
+        ? progress
+        : Math.round(progress * 100 * 100) / 100;
+    }
+
+    onMounted(() => {
+      // setInterval(requestStatus, 1000);
+      requestStatus();
+    });
 
     return {
       jobStatus,
@@ -125,6 +118,7 @@ export default defineComponent({
       printTime,
       printTimeLeft,
       filePos,
+      formatProgress,
       togglePrint,
     };
   },

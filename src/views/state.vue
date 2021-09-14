@@ -14,46 +14,30 @@
 
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   components: { detailsLister },
   setup() {
-    const state = ref({
-      temperature: {
-        tool0: {
-          actual: 214.8821,
-          target: 220.0,
-          offset: 0,
-        },
-        tool1: {
-          actual: 25.3,
-          target: null,
-          offset: 0,
-        },
-        bed: {
-          actual: 50.221,
-          target: 70.0,
-          offset: 5,
-        },
-      },
-      state: {
-        sd: {
-          ready: true,
-        },
-        text: "Operational",
-        flags: {
-          operational: true,
-          paused: false,
-          printing: false,
-          cancelling: false,
-          pausing: false,
-          sdReady: true,
-          error: false,
-          ready: true,
-          closedOrError: false,
-        },
-      },
+    const state = ref({});
+
+    function requestState() {
+      fetch(
+        "http://192.168.43.60/api/printer?apikey=D299AAAE1A294A458D3846FE33A48AC0"
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          state.value = data;
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+    }
+
+    onMounted(() => {
+      setInterval(requestState, 1000);
     });
 
     return {

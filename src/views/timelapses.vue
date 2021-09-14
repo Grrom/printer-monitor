@@ -8,7 +8,7 @@
     </p> -->
 
     <div
-      v-for="(timelapse, index) in allTimelapses"
+      v-for="timelapse in allTimelapses"
       :key="timelapse.name"
       class="timelapse-container"
     >
@@ -19,16 +19,6 @@
           <p>{{ timelapse.date }}</p>
         </div>
         <div class="icon-button-container">
-          <img
-            :src="
-              timelapse.playing
-                ? require('@/assets/close.svg')
-                : require('@/assets/play.svg')
-            "
-            alt="play"
-            class="icon-button"
-            @click="setPlaying(index)"
-          />
           <a :href="timelapse.url" download target="_blank">
             <img
               src="@/assets/download.svg"
@@ -38,62 +28,46 @@
           </a>
         </div>
       </div>
-      <video
-        v-show="timelapse.playing"
-        :src="timelapse.url"
-        controls
-        class="video-player"
-      ></video>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
   setup() {
-    const allTimelapses = ref([
-      {
-        name: "timelapse 01",
-        size: "100mb",
-        date: new Date().toString(),
-        url: require("@/assets/groot.mp4"),
-        playing: false,
-      },
-      {
-        name: "timelapse 02",
-        size: "100mb",
-        date: new Date().toString(),
-        url: require("@/assets/groot.mp4"),
-        playing: false,
-      },
-      {
-        name: "timelapse 03",
-        size: "100mb",
-        date: new Date().toString(),
-        url: require("@/assets/groot.mp4"),
-        playing: false,
-      },
-    ]);
+    const allTimelapses = ref([{}]);
 
-    function setPlaying(index: number) {
-      let isPlaying = allTimelapses.value[index].playing;
-      allTimelapses.value[index].playing = !isPlaying;
-
-      let videoPlayer: HTMLVideoElement = document.querySelectorAll(
-        ".video-player"
-      )[index] as HTMLVideoElement;
-      if (isPlaying) {
-        videoPlayer.pause();
-      } else {
-        videoPlayer.play();
-      }
+    function requestTimelapses() {
+      fetch(
+        "http://192.168.43.60/api/timelapse?apikey=D299AAAE1A294A458D3846FE33A48AC0"
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          allTimelapses.value.pop();
+          data.files.forEach((timelapse: any) => {
+            allTimelapses.value.push({
+              name: timelapse.name,
+              size: timelapse.size,
+              date: timelapse.date,
+              url: `http://192.168.43.60${timelapse.url}`,
+            });
+          });
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
     }
+
+    onMounted(() => {
+      requestTimelapses();
+    });
 
     return {
       allTimelapses,
-      setPlaying,
     };
   },
 });
