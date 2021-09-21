@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import DetailsLister from "@/components/detailsLister.vue";
+import { getLink } from "@/helpers/helpers";
 import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
@@ -21,9 +22,7 @@ export default defineComponent({
     const connectionDetails = ref({});
 
     function requestState() {
-      fetch(
-        "http://192.168.43.60/api/connection?apikey=D299AAAE1A294A458D3846FE33A48AC0"
-      )
+      fetch(getLink("connection"))
         .then(function (response) {
           return response.json();
         })

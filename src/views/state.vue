@@ -14,6 +14,7 @@
 
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
+import { getLink } from "@/helpers/helpers";
 import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
@@ -22,9 +23,7 @@ export default defineComponent({
     const state = ref({});
 
     function requestState() {
-      fetch(
-        "http://192.168.43.60/api/printer?apikey=D299AAAE1A294A458D3846FE33A48AC0"
-      )
+      fetch(getLink("printer"))
         .then(function (response) {
           return response.json();
         })

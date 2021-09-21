@@ -33,6 +33,7 @@
 </template>
 
 <script lang="ts">
+import { getLink } from "@/helpers/helpers";
 import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
@@ -40,9 +41,7 @@ export default defineComponent({
     const allTimelapses = ref([{}]);
 
     function requestTimelapses() {
-      fetch(
-        "http://192.168.43.60/api/timelapse?apikey=D299AAAE1A294A458D3846FE33A48AC0"
-      )
+      fetch(getLink("timelapse"))
         .then(function (response) {
           return response.json();
         })
