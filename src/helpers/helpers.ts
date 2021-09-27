@@ -1,3 +1,10 @@
+const apiKey = "D299AAAE1A294A458D3846FE33A48AC0";
+const ip = "http://192.168.43.60/api/"
+
+export function getLink(endpoint: string): string {
+    return `${ip}${endpoint}?apikey=${apiKey}`;
+}
+
 export function convertBytes(bytes: string | null): string {
     if (bytes == null) {
         bytes = "0";

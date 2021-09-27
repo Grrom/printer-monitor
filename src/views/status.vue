@@ -49,7 +49,12 @@
 
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
-import { formatTime, convertBytes, formatProgress } from "@/helpers/helpers";
+import {
+  formatTime,
+  convertBytes,
+  getLink,
+  formatProgress,
+} from "@/helpers/helpers";
 import { computed, defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
@@ -78,9 +83,7 @@ export default defineComponent({
     const filePos = computed(() => convertBytes(`${progress.value.filepos}`));
 
     function requestStatus() {
-      fetch(
-        "http://192.168.43.60/api/job?apikey=D299AAAE1A294A458D3846FE33A48AC0"
-      )
+      fetch(getLink("job"))
         .then(function (response) {
           return response.json();
         })
