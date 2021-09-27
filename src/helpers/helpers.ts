@@ -46,3 +46,9 @@ export function formatDate(value: number | null): string {
     return day + "-" + month + "-" + year;
 }
 
+export function formatProgress(progress: number): number {
+    return progress === 100
+        ? progress
+        : Math.round(progress * 100 * 100) / 100;
+}
+

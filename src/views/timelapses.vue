@@ -48,14 +48,21 @@ export default defineComponent({
         })
         .then(function (data) {
           allTimelapses.value.pop();
-          data.files.forEach((timelapse: any) => {
-            allTimelapses.value.push({
-              name: timelapse.name,
-              size: timelapse.size,
-              date: timelapse.date,
-              url: `http://192.168.43.60${timelapse.url}`,
-            });
-          });
+          data.files.forEach(
+            (timelapse: {
+              name: string;
+              size: number;
+              date: number;
+              url: string;
+            }) => {
+              allTimelapses.value.push({
+                name: timelapse.name,
+                size: timelapse.size,
+                date: timelapse.date,
+                url: `http://192.168.43.60${timelapse.url}`,
+              });
+            }
+          );
         })
         .catch((error) => {
           console.warn(error);

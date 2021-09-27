@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
-import { formatTime, convertBytes } from "@/helpers/helpers";
+import { formatTime, convertBytes, formatProgress } from "@/helpers/helpers";
 import { computed, defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
@@ -97,12 +97,6 @@ export default defineComponent({
         .catch((error) => {
           console.warn(error);
         });
-    }
-
-    function formatProgress(progress: number): number {
-      return progress === 100
-        ? progress
-        : Math.round(progress * 100 * 100) / 100;
     }
 
     onMounted(() => {
