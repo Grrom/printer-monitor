@@ -1,5 +1,5 @@
-const apiKey = "D299AAAE1A294A458D3846FE33A48AC0";
-const ip = "http://192.168.43.60/api/"
+export const apiKey = "D299AAAE1A294A458D3846FE33A48AC0";
+export const ip = "http://192.168.43.60/api/"
 
 export function getLink(endpoint: string): string {
     return `${ip}${endpoint}?apikey=${apiKey}`;
@@ -56,6 +56,6 @@ export function formatDate(value: number | null): string {
 export function formatProgress(progress: number): number {
     return progress === 100
         ? progress
-        : Math.round(progress * 100 * 100) / 100;
+        : Math.round(progress * 100) / 100;
 }
 
