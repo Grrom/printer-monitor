@@ -124,7 +124,6 @@ export default defineComponent({
           jobStatus.value["job"] = data.job;
           jobStatus.value["state"] = data.state;
           progress.value = data.progress;
-          // console.log(data.progress);
 
           progressBar.value.style.width = `${formatProgress(
             data.progress.completion

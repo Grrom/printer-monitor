@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import navItem from "./navItem.vue";
 
 export default defineComponent({
@@ -42,10 +42,6 @@ export default defineComponent({
         name: "Timelapses",
       },
     ]);
-
-    onMounted(() => {
-      console.log("mounted navbar");
-    });
 
     return {
       navItems,

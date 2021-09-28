@@ -49,7 +49,6 @@ export default defineComponent({
 
     onMounted(() => {
       emitter.on("close-nav", () => {
-        console.log("close requested");
         toggleNavbar("close");
       });
     });
