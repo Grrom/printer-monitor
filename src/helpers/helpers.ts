@@ -59,3 +59,5 @@ export function formatProgress(progress: number): number {
         : Math.round(progress * 100) / 100;
 }
 
+/* eslint @typescript-eslint/no-var-requires: "off" */
+export const xlsx = require("json-as-xlsx");
