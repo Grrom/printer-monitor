@@ -29,11 +29,13 @@ export default defineComponent({
       {
         sheet: "Bed",
         columns: [
+          { label: "time (HH:MM:SS)", value: "time (HH:MM:SS)" },
           { label: "actual", value: "actual" },
           { label: "offset", value: "offset" },
           { label: "target", value: "target" },
         ],
         content: [] as Array<{
+          "time (HH:MM:SS)": string;
           actual: number;
           offset: number;
           target: number;
@@ -42,11 +44,13 @@ export default defineComponent({
       {
         sheet: "Tool0",
         columns: [
+          { label: "time (HH:MM:SS)", value: "time (HH:MM:SS)" },
           { label: "actual", value: "actual" },
           { label: "offset", value: "offset" },
           { label: "target", value: "target" },
         ],
         content: [] as Array<{
+          "time (HH:MM:SS)": string;
           actual: number;
           offset: number;
           target: number;
@@ -64,12 +68,22 @@ export default defineComponent({
         .then(function (data) {
           state.value = data;
           let temp = data.temperature;
+          let now = new Date();
+          let timeNow =
+            now.getHours().toString().padStart(2, "0") +
+            ":" +
+            now.getMinutes().toString().padStart(2, "0") +
+            ":" +
+            now.getSeconds().toString().padStart(2, "0");
+
           temperatureLogs.value[0].content.push({
+            "time (HH:MM:SS)": timeNow,
             actual: temp.bed.actual,
             offset: temp.bed.offset,
             target: temp.bed.target,
           });
           temperatureLogs.value[1].content.push({
+            "time (HH:MM:SS)": timeNow,
             actual: temp.tool0.actual,
             offset: temp.tool0.offset,
             target: temp.tool0.target,
@@ -87,7 +101,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      setInterval(requestState, 5000);
+      setInterval(requestState, 1000);
     });
 
     return {
