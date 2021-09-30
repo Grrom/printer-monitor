@@ -18,7 +18,13 @@
 <script lang="ts">
 import detailsLister from "@/components/detailsLister.vue";
 import { getLink, xlsx } from "@/helpers/helpers";
-import { computed, defineComponent, onMounted, ref } from "vue";
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+} from "vue";
 
 export default defineComponent({
   components: { detailsLister },
@@ -30,9 +36,9 @@ export default defineComponent({
         sheet: "Bed",
         columns: [
           { label: "time (HH:MM:SS)", value: "time (HH:MM:SS)" },
-          { label: "actual", value: "actual" },
-          { label: "offset", value: "offset" },
-          { label: "target", value: "target" },
+          { label: "actual temperature", value: "actual" },
+          { label: "temperature offset", value: "offset" },
+          { label: "temperature target", value: "target" },
         ],
         content: [] as Array<{
           "time (HH:MM:SS)": string;
@@ -45,9 +51,9 @@ export default defineComponent({
         sheet: "Tool0",
         columns: [
           { label: "time (HH:MM:SS)", value: "time (HH:MM:SS)" },
-          { label: "actual", value: "actual" },
-          { label: "offset", value: "offset" },
-          { label: "target", value: "target" },
+          { label: "actual temperature", value: "actual" },
+          { label: "temperature offset", value: "offset" },
+          { label: "temperature target", value: "target" },
         ],
         content: [] as Array<{
           "time (HH:MM:SS)": string;
@@ -61,6 +67,7 @@ export default defineComponent({
     const hasLogs = computed(() => temperatureLogs.value[0].content.length > 0);
 
     function requestState() {
+      console.log("requesting state");
       fetch(getLink("printer"))
         .then(function (response) {
           return response.json();
@@ -100,8 +107,14 @@ export default defineComponent({
       });
     }
 
+    let interval: number | undefined;
+
     onMounted(() => {
-      setInterval(requestState, 1000);
+      interval = setInterval(requestState, 1000);
+    });
+
+    onBeforeUnmount(() => {
+      clearInterval(interval);
     });
 
     return {

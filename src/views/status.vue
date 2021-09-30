@@ -65,7 +65,13 @@ import {
   apiKey,
   ip,
 } from "@/helpers/helpers";
-import { computed, defineComponent, onMounted, ref } from "vue";
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+} from "vue";
 
 export default defineComponent({
   components: { detailsLister },
@@ -133,10 +139,14 @@ export default defineComponent({
           console.warn(error);
         });
     }
+    let interval: number | undefined;
 
     onMounted(() => {
-      setInterval(requestStatus, 1000);
-      // requestStatus();
+      interval = setInterval(requestStatus, 1000);
+    });
+
+    onBeforeUnmount(() => {
+      clearInterval(interval);
     });
 
     return {
