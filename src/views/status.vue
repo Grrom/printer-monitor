@@ -51,6 +51,16 @@
       </div>
     </div>
 
+    <div class="live-stream-container">
+      <iframe
+        class="live-stream"
+        src="http://192.168.43.60/webcam/?action=stream&1635819074748"
+        frameborder="0"
+        width="640"
+        height="360"
+      ></iframe>
+    </div>
+
     <details-lister :details-list="jobStatus"></details-lister>
   </div>
 </template>
@@ -232,6 +242,15 @@ export default defineComponent({
 
     .pause {
       background-color: $secondary;
+    }
+  }
+
+  .live-stream-container {
+    overflow: hidden;
+
+    .live-stream {
+      @extend .rounded-border;
+      @extend .box-shadow;
     }
   }
 }
